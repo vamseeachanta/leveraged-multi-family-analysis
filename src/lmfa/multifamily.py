@@ -1,39 +1,49 @@
 import os
+import sys
 import json
 import pprint
 import pandas as pd
 import pathlib
-from multifamily_analysis import MultiFamily
-from multifamily_analysis import MultiFamilyCharts
+from lmfa.multifamily_analysis import MultiFamily
+from lmfa.multifamily_analysis import MultiFamilyCharts
 
-mf = MultiFamily()
 
-config_filenames = ['multifamily_2.yaml', 'multifamily_4.yaml']
-config_outputs = []
+def run_analysis():
+    mf = MultiFamily()
+    argv = sys.argv[1:]
+    config_filenames = [arg for arg in argv if arg.find('=') < 0]
+    if len(config_filenames) == 0:
+        config_filenames = ['multifamily_2.yaml', 'multifamily_4.yaml']
 
-output_folder = os.path.join(pathlib.Path(__file__).resolve().parent, 'output')
-if not os.path.isdir(output_folder):
-    os.mkdir(output_folder)
+    config_outputs = []
 
-for config_filename in config_filenames:
-    config = mf.get_config_data(config_filename=config_filename)
-    config = mf.add_missing_inputs(config=config)
-    config = mf.get_metrics(config)
+    output_folder = os.path.join(
+        pathlib.Path(__file__).resolve().parent, 'output')
+    if not os.path.isdir(output_folder):
+        os.mkdir(output_folder)
 
-    config_outputs.append(config)
-    print("=======================================")
-    print("For Project A:")
-    pprint.pprint(config['projects'][0])
+    for config_filename in config_filenames:
+        config = mf.get_config_data(config_filename=config_filename)
+        config = mf.add_missing_inputs(config=config)
+        config = mf.get_metrics(config)
 
-    output_filename = os.path.join(
-        pathlib.Path(__file__).resolve().parent, 'output',
-        config_filename.split('.')[0] + '_out.yaml')
-    with open(output_filename, 'w') as output_file:
-        output_file.write(json.dumps(config, indent=4))
+        config_outputs.append(config)
+        print("=======================================")
+        print("For Project A:")
+        pprint.pprint(config['projects'][0])
 
-mfc = MultiFamilyCharts()
-mfc.get_common_chart_data(config_outputs)
-mfc.get_all_charts(output_folder)
+        output_filename = os.path.join(
+            pathlib.Path(__file__).resolve().parent, 'output',
+            config_filename.split('.')[0] + '_out.yaml')
+        with open(output_filename, 'w') as output_file:
+            output_file.write(json.dumps(config, indent=4))
+
+    mfc = MultiFamilyCharts()
+    mfc.get_common_chart_data(config_outputs)
+    mfc.get_all_charts(output_folder)
+
+
+run_analysis()
 '''
 TODO 
 a/ Increase LP incentive brackets further
