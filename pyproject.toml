@@ -43,8 +43,8 @@ push            = false
         'current_version = "{version}"',
         'version = "{version}"',
     ]
-    "src/reader/__init__.py" = ["{version}"]
-    "src/reader/__main__.py" = ["- leveraged-multi-family-analysis v{version}"]
+    "src/lmfa/__init__.py" = ["{version}"]
+    "src/lmfa/__main__.py" = ["- leveraged-multi-family-analysis v{version}"]
 
 [tool.isort]
 profile                   = "black"

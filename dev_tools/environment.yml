@@ -10,3 +10,4 @@ dependencies:
     - leveraged-multi-family-analysis
     - pyyaml
     - numpy_financial
+    - bumpver
