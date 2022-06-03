@@ -11,6 +11,10 @@ mf = MultiFamily()
 config_filenames = ['multifamily_2.yaml', 'multifamily_4.yaml']
 config_outputs = []
 
+output_folder = os.path.join(pathlib.Path(__file__).resolve().parent, 'output')
+if not os.path.isdir(output_folder):
+    os.mkdir(output_folder)
+
 for config_filename in config_filenames:
     config = mf.get_config_data(config_filename=config_filename)
     config = mf.add_missing_inputs(config=config)
@@ -22,17 +26,19 @@ for config_filename in config_filenames:
     pprint.pprint(config['projects'][0])
 
     output_filename = os.path.join(
-        pathlib.Path(__file__).resolve().parent,
+        pathlib.Path(__file__).resolve().parent, 'output',
         config_filename.split('.')[0] + '_out.yaml')
     with open(output_filename, 'w') as output_file:
         output_file.write(json.dumps(config, indent=4))
 
 mfc = MultiFamilyCharts()
 mfc.get_common_chart_data(config_outputs)
-mfc.get_all_charts(config_outputs)
+mfc.get_all_charts(output_folder)
 '''
 TODO 
-a/ Increase incentive brackets further
+a/ Increase LP incentive brackets further
 b/ Add more breakdown to expenses, renovations, etc.
 c/ Automate market research numbers using python tools
+d/ Include Class A and B shares if amount is significantly high
+e/ Implement sensitivity analysis for financial stress tests
 '''

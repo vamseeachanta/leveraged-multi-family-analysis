@@ -661,13 +661,13 @@ class MultiFamilyCharts:
 
         self.plot_years = list(range(1, max(self.hold_years) + 1))
 
-    def get_all_charts(self, outputs):
-        self.get_irr_chart()
-        self.get_equity_multiple_chart()
-        self.get_cash_flow_chart(outputs)
-        self.get_cash_flow_return_chart()
+    def get_all_charts(self, output_folder):
+        self.get_irr_chart(output_folder)
+        self.get_equity_multiple_chart(output_folder)
+        self.get_cash_flow_chart(output_folder)
+        self.get_cash_flow_return_chart(output_folder)
 
-    def get_irr_chart(self):
+    def get_irr_chart(self, output_folder):
 
         data = []
         layout = {
@@ -681,12 +681,11 @@ class MultiFamilyCharts:
             'title': 'Comparison of Project IRR'
         }
         data.append(go.Bar(name="IRR", x=self.Name, y=self.irr))
-        fig = go.Figure(data=data, layout=layout)
+        self.fig_irr = go.Figure(data=data, layout=layout)
+        self.fig_irr.write_html(
+            os.path.join(output_folder, self.Name[0] + "irr.html"))
 
-        fig.write_html(
-            "D:\\GitHub\\investments\\re_multifamily\\udemy\\output\\irr.html")
-
-    def get_equity_multiple_chart(self):
+    def get_equity_multiple_chart(self, output_folder):
 
         data = []
         layout = {
@@ -701,13 +700,11 @@ class MultiFamilyCharts:
         }
         data.append(
             go.Bar(name="Equity Multiple", x=self.Name, y=self.equity_multiple))
-        fig = go.Figure(data=data, layout=layout)
+        self.fig_equity_multiple = go.Figure(data=data, layout=layout)
+        self.fig_equity_multiple.write_html(
+            os.path.join(output_folder, self.Name[0] + "equity_multiple.html"))
 
-        fig.write_html(
-            "D:\\GitHub\\investments\\re_multifamily\\udemy\\output\\equity_multiple.html"
-        )
-
-    def get_cash_flow_return_chart(self):
+    def get_cash_flow_return_chart(self, output_folder):
 
         data = []
         layout = {
@@ -726,15 +723,14 @@ class MultiFamilyCharts:
                        x=self.plot_years,
                        y=self.cash_flow_return[proj_num]))
 
-        fig = go.Figure(data=data, layout=layout)
+        self.fig_cash_flow_return = go.Figure(data=data, layout=layout)
         barmode = 'group'
-        fig.update_layout(barmode=barmode)
+        self.fig_cash_flow_return.update_layout(barmode=barmode)
 
-        fig.write_html(
-            "D:\\GitHub\\investments\\re_multifamily\\udemy\\output\\cash_flow_return.html"
-        )
+        self.fig_cash_flow_return.write_html(
+            os.path.join(output_folder, self.Name[0] + "cash_flow_return.html"))
 
-    def get_cash_flow_chart(self, outputs):
+    def get_cash_flow_chart(self, output_folder):
 
         for proj_num in range(0, len(self.Name)):
             data = []
@@ -765,10 +761,10 @@ class MultiFamilyCharts:
                        x=self.plot_years,
                        y=self.leveraged_cash_flow[proj_num]))
 
-            fig = go.Figure(data=data, layout=layout)
+            self.fig_cash_flow = go.Figure(data=data, layout=layout)
             barmode = 'group'
-            fig.update_layout(barmode=barmode)
+            self.fig_cash_flow.update_layout(barmode=barmode)
 
-            fig.write_html(
-                "D:\\GitHub\\investments\\re_multifamily\\udemy\\output\\" +
-                self.Name[proj_num] + "cash_flow.html")
+            self.fig_cash_flow.write_html(
+                os.path.join(output_folder,
+                             self.Name[proj_num] + "cash_flow.html"))

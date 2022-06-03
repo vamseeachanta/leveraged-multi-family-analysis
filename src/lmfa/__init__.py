@@ -12,4 +12,4 @@ except ModuleNotFoundError:
     import tomli as tomllib
 
 # Version of package
-__version__ = "1.1.1"
+__version__ = "0.1.0"

@@ -1,0 +1,12 @@
+name: lmfa
+channels:
+  - defaults
+  - conda-forge
+dependencies:
+  - python
+  - pandas
+  - pip
+  - pip:
+    - leveraged-multi-family-analysis
+    - pyyaml
+    - numpy_financial
