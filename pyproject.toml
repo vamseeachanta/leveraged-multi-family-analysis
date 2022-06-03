@@ -23,7 +23,7 @@ requires-python = ">=3.7"
     dev   = ["black", "bumpver", "isort", "mypy", "pytest"]
 
     [project.scripts]
-    realpython = "lmfa.multifamily"
+    multifamily = "lmfa.multifamily"
 
     [project.urls]
     repository    = "https://github.com/vamseeachanta/leveraged-multi-family-analysis"
