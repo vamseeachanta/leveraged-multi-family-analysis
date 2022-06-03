@@ -3,6 +3,8 @@
 Usage:
 ------
 
+python -m lmfa 'multifamily_2.yaml', 'multifamily_4.yaml'
+
 
 Contact:
 --------
