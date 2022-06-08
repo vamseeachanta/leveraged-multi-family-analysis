@@ -11,7 +11,8 @@ from lmfa.multifamily_analysis import MultiFamilyCharts
 def run_analysis(config_filenames=[]):
     mf = MultiFamily()
     argv = sys.argv[1:]
-    config_filenames = [arg for arg in argv if arg.find('=') < 0]
+    if len(config_filenames) == 0:
+        config_filenames = [arg for arg in argv if arg.find('=') < 0]
     if len(config_filenames) == 0:
         config_filenames = ['multifamily_2.yaml', 'multifamily_4.yaml']
 
@@ -43,7 +44,6 @@ def run_analysis(config_filenames=[]):
     mfc.get_all_charts(output_folder)
 
 
-run_analysis()
 '''
 TODO 
 a/ Increase LP incentive brackets further

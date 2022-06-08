@@ -1,3 +1,4 @@
 from lmfa import multifamily
 
-multifamily.run_analysis()
+config_files = ['2022_06_qinn_at_westchase.yaml']
+multifamily.run_analysis(config_files)

@@ -18,7 +18,7 @@ More information is available at:
 Version:
 --------
 
-- leveraged-multi-family-analysis v0.1.1
+- leveraged-multi-family-analysis v0.1.2
 """
 from lmfa import multifamily
 
