@@ -8,7 +8,7 @@ from lmfa.multifamily_analysis import MultiFamily
 from lmfa.multifamily_analysis import MultiFamilyCharts
 
 
-def run_analysis():
+def run_analysis(config_filenames=[]):
     mf = MultiFamily()
     argv = sys.argv[1:]
     config_filenames = [arg for arg in argv if arg.find('=') < 0]
