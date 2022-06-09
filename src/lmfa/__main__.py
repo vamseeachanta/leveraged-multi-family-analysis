@@ -18,9 +18,10 @@ More information is available at:
 Version:
 --------
 
-- leveraged-multi-family-analysis v0.1.3
+- leveraged-multi-family-analysis v0.1.4
 """
-from lmfa import multifamily
+# from lmfa import multifamily
+import multifamily
 
 
 def main() -> None:
