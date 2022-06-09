@@ -1,10 +1,10 @@
-# Test using package
+# Test using files
 import pathlib
 import os
-from lmfa import multifamily
-from lmfa.utilities import get_config_files
+from src.lmfa import multifamily
+from src.lmfa.utilities import get_config_files
 
-config_files = ['2022_06_qinn_at_westchase.yaml']
+config_files = ['tests/2022_06_qinn_at_westchase.yaml']
 parent_path = pathlib.Path(__file__).resolve().parent
 
 if len(config_files) == 0:

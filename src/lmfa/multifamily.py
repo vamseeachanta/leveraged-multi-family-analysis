@@ -1,27 +1,17 @@
 import os
 import sys
 import json
-import pprint
-import pandas as pd
 import pathlib
+import pprint
 from lmfa.multifamily_analysis import MultiFamily
 from lmfa.multifamily_analysis import MultiFamilyCharts
+from lmfa.utilities import add_and_get_output_folder
 
 
 def run_analysis(config_filenames=[]):
     mf = MultiFamily()
-    argv = sys.argv[1:]
-    if len(config_filenames) == 0:
-        config_filenames = [arg for arg in argv if arg.find('=') < 0]
-    if len(config_filenames) == 0:
-        config_filenames = ['multifamily_2.yaml', 'multifamily_4.yaml']
 
     config_outputs = []
-
-    output_folder = os.path.join(
-        pathlib.Path(__file__).resolve().parent, 'output')
-    if not os.path.isdir(output_folder):
-        os.mkdir(output_folder)
 
     for config_filename in config_filenames:
         config = mf.get_config_data(config_filename=config_filename)
@@ -33,8 +23,11 @@ def run_analysis(config_filenames=[]):
         print("For Project A:")
         pprint.pprint(config['projects'][0])
 
+        parent_path = pathlib.Path(config_filename).parent.absolute()
+        output_folder = add_and_get_output_folder(parent_path)
+
         output_filename = os.path.join(
-            pathlib.Path(__file__).resolve().parent, 'output',
+            output_folder,
             config_filename.split('.')[0] + '_out.yaml')
         with open(output_filename, 'w') as output_file:
             output_file.write(json.dumps(config, indent=4))
