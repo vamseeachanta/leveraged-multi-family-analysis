@@ -20,11 +20,20 @@ Version:
 
 - leveraged-multi-family-analysis v0.1.4
 """
-# from lmfa import multifamily
-import multifamily
+import os
+import pathlib
+from lmfa import multifamily
+from lmfa.utilities import get_config_files
 
 
 def main() -> None:
+    parent_path = pathlib.Path(__file__).resolve().parent
+    config_files = get_config_files()
+
+    config_files = [
+        os.path.join(parent_path, config_file) for config_file in config_files
+    ]
+
     multifamily.run_analysis()
 
 
