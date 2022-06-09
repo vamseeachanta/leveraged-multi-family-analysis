@@ -33,7 +33,7 @@ More information is available at:
 Version:
 --------
 
-- leveraged-multi-family-analysis v0.1.4
+- leveraged-multi-family-analysis v0.1.5
 """
 import os
 import pathlib
